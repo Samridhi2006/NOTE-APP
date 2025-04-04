@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📝 Cool Markdown Notes</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- College Banner -->
+  <header class="banner">
+    <img src="cmu.jpeg" alt="CMU Jharkhand Banner">
+  </header>
+
+  <div class="container">
+    <h1>🚀 Markdown Magic Notes</h1>
+    <textarea id="note-input" placeholder="✨ Write in Markdown... # Hello World ✨"></textarea>
+    <div class="buttons">
+      <button class="btn save" onclick="saveNote()">💾 Save</button>
+      <button class="btn export" onclick="exportNote()">⬇️ Export</button>
+    </div>
+    <h2>🔍 Live Preview</h2>
+    <div id="preview" class="glass"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
