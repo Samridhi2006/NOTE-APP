@@ -1,30 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>📝 Cool Markdown Notes</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College MarkDown Notes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.1/chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark.min.css">
 </head>
 <body>
-
-  <!-- College Banner -->
-  <header class="banner">
-    <img src="cmu.jpeg" alt="CMU Jharkhand Banner">
-  </header>
-
-  <div class="container">
-    <h1>🚀 Markdown Magic Notes</h1>
-    <textarea id="note-input" placeholder="✨ Write in Markdown... # Hello World ✨"></textarea>
-    <div class="buttons">
-      <button class="btn save" onclick="saveNote()">💾 Save</button>
-      <button class="btn export" onclick="exportNote()">⬇️ Export</button>
+    <!-- College Banner -->
+    <div class="college-banner">
+        <img src="cmu.jpeg" alt="College Logo" class="college-logo">
+        <div class="college-info">
+            <h1>COLLEGE OF TECHNOLOGY</h1>
+            <p>Excellence in Education and Innovation</p>
+        </div>
+        <div class="banner-decoration"></div>
     </div>
-    <h2>🔍 Live Preview</h2>
-    <div id="preview" class="glass"></div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="script.js"></script>
+    <!-- Main App Banner -->
+    <div class="banner">
+        <div class="banner-content">
+            <h1><i class="fas fa-book-open"></i> MarkDown Notes Pro</h1>
+            <p>Create, Edit, and Save your notes with advanced Markdown support</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <div class="tools">
+                <button class="btn pulse-btn" id="new-note-btn"><i class="fas fa-plus"></i> New Note</button>
+                <button class="btn" id="export-note-btn"><i class="fas fa-download"></i> Export Note (.txt)</button>
+                <button class="btn btn-danger" id="delete-note-btn"><i class="fas fa-trash"></i> Delete Note</button>
+            </div>
+            <div class="notes-list" id="notes-list">
+                <!-- Notes will be dynamically added here -->
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="tabs">
+                <button class="tab active" data-tab="editor"><i class="fas fa-edit"></i> Editor</button>
+                <button class="tab" data-tab="calendar"><i class="fas fa-calendar-alt"></i> Calendar</button>
+                <button class="tab" data-tab="calculator"><i class="fas fa-calculator"></i> Calculator</button>
+                <button class="tab" data-tab="stats"><i class="fas fa-chart-line"></i> Stats</button>
+            </div>
+            
+            <div class="tab-content active" id="editor-tab">
+                <div class="main-content">
+                    <div class="editor-container">
+                        <div class="editor-toolbar">
+                            <button class="toolbar-btn" data-format="bold"><i class="fas fa-bold"></i></button>
+                            <button class="toolbar-btn" data-format="italic"><i class="fas fa-italic"></i></button>
+                            <button class="toolbar-btn" data-format="heading"><i class="fas fa-heading"></i></button>
+                            <button class="toolbar-btn" data-format="link"><i class="fas fa-link"></i></button>
+                            <button class="toolbar-btn" data-format="list-ul"><i class="fas fa-list-ul"></i></button>
+                            <button class="toolbar-btn" data-format="list-ol"><i class="fas fa-list-ol"></i></button>
+                            <button class="toolbar-btn" data-format="code"><i class="fas fa-code"></i></button>
+                            <button class="toolbar-btn" data-format="quote"><i class="fas fa-quote-right"></i></button>
+                            <button class="toolbar-btn" data-format="table"><i class="fas fa-table"></i></button>
+                        </div>
+                        <input type="text" id="note-title" class="editor-title" placeholder="Note Title">
+                        <textarea id="editor" class="editor" placeholder="Write your note here using Markdown..."></textarea>
+                        <div class="status">
+                            <span id="status-message">All changes saved</span>
+                            <span id="word-count">0 words</span>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-container">
+                        <div class="preview-header">Preview</div>
+                        <div class="preview" id="preview"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="calendar-tab">
+                <div class="calendar-container">
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <button class="calendar-nav" id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                            <h2 id="calendar-title">April 2025</h2>
+                            <button class="calendar-nav" id="next-month"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar-grid">
+                            <div class="calendar-day">Sun</div>
+                            <div class="calendar-day">Mon</div>
+                            <div class="calendar-day">Tue</div>
+                            <div class="calendar-day">Wed</div>
+                            <div class="calendar-day">Thu</div>
+                            <div class="calendar-day">Fri</div>
+                            <div class="calendar-day">Sat</div>
+                            <!-- Calendar dates will be added dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="calculator-tab">
+                <div class="calculator-container">
+                    <h2 class="scientific-title">Scientific Calculator</h2>
+                    <div class="calculator">
+                        <div class="calculator-display">
+                            <div id="calculator-expression"></div>
+                            <div id="calculator-result">0</div>
+                        </div>
+                        <div class="calculator-keys">
+                            <!-- Scientific Functions -->
+                            <button class="calculator-key function" data-action="sin">sin</button>
+                            <button class="calculator-key function" data-action="cos">cos</button>
+                            <button class="calculator-key function" data-action="tan">tan</button>
+                            <button class="calculator-key function" data-action="log">log</button>
+                            
+                            <button class="calculator-key function" data-action="sqrt">√</button>
+                            <button class="calculator-key function" data-action="square">x²</button>
+                            <button class="calculator-key function" data-action="power">x^y</button>
+                            <button class="calculator-key function" data-action="pi">π</button>
+                            
+                            <!-- Standard Calculator -->
+                            <button class="calculator-key" data-action="clear">C</button>
+                            <button class="calculator-key" data-action="backspace"><i class="fas fa-backspace"></i></button>
+                            <button class="calculator-key" data-action="bracket">()</button>
+                            <button class="calculator-key operator" data-action="divide">/</button>
+                            
+                            <button class="calculator-key">7</button>
+                            <button class="calculator-key">8</button>
+                            <button class="calculator-key">9</button>
+                            <button class="calculator-key operator" data-action="multiply">*</button>
+                            
+                            <button class="calculator-key">4</button>
+                            <button class="calculator-key">5</button>
+                            <button class="calculator-key">6</button>
+                            <button class="calculator-key operator" data-action="subtract">-</button>
+                            
+                            <button class="calculator-key">1</button>
+                            <button class="calculator-key">2</button>
+                            <button class="calculator-key">3</button>
+                            <button class="calculator-key operator" data-action="add">+</button>
+                            
+                            <button class="calculator-key">0</button>
+                            <button class="calculator-key">.</button>
+                            <button class="calculator-key equals" data-action="calculate">=</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="stats-tab">
+                <div class="stats-container">
+                    <h2>Notes Statistics</h2>
+                    <div class="stats-summary">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-sticky-note"></i></div>
+                            <div class="stat-value" id="total-notes">0</div>
+                            <div class="stat-label">Total Notes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-pen"></i></div>
+                            <div class="stat-value" id="total-words">0</div>
+                            <div class="stat-label">Total Words</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                            <div class="stat-value" id="avg-length">0</div>
+                            <div class="stat-label">Avg. Words/Note</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="notes-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>© 2025 College of Technology - MarkDown Notes Pro</p>
+        <p>Built with <i class="fas fa-heart"></i> by Students</p>
+    </footer>
+    
+    <script src="script.js"></script>
 </body>
 </html>
